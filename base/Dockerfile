@@ -7,7 +7,7 @@ ARG PLUGINMGR_VERSION=1.3
 ARG JRE_VERSION=11
 
 ENV LANG=C.UTF-8 \
-    JVM_ARGS="-Xms2G -Xmx2G"
+    JVM_ARGS="-Xms512m -Xmx512m"
     
 
 RUN mkdir -p /usr/share/man/man1 && \

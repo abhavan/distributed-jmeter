@@ -1,0 +1,28 @@
+FROM 201777367430.dkr.ecr.us-east-1.amazonaws.com/ref1.5/release/platform/infrastructure/docker-base-jmeter:latest-0
+
+ARG TEAM
+ARG NAME
+ARG BUILD_DATE
+ARG BUILD_NUMBER
+ARG GIT_URL
+ARG GIT_COMMIT
+
+# See: http://label-schema.org/rc1/
+LABEL maintainer="$TEAM" \
+      base-image.name="$NAME" \
+      base-image.vendor="EBSCO" \
+      base-image.description="EBSCO IS $NAME" \
+      base-image.build-date=$BUILD_DATE \
+      base-image.version=$VERSION \
+      base-image.vcs-url=$GIT_URL \
+      base-image.vcs-ref=$GIT_COMMIT
+
+# Ports to be exposed from the container for JMeter Slaves/Server
+EXPOSE 1099 50000
+
+# Application to run on starting the container
+ENTRYPOINT $JMETER_HOME/bin/jmeter-server \
+                        -Dserver.rmi.localport=50000 \
+                        -Dserver_port=1099
+
+USER ebsco:ebsco
